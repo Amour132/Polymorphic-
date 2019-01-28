@@ -91,14 +91,59 @@ class C
 		cout << "Fun3-C" << endl;
 	}
 };
+
+//C++11
+class Car
+{
+public:
+	virtual void Drive() //final
+	{}                     //final 修饰的基类虚函数无法被派生类重写
+};
+class Dz : public Car
+{
+public:
+	virtual void Drive() override
+	{                    //override修饰的基类虚函数派生类必须完成重写，否则会报错
+		cout << "Dz" << endl;
+	}
+};
+
+
+//协变 :虚函数重写的例外，重写虚函数的返回值可以不同但必须分别是基类和派生类的指针或引用
+class a
+{};
+
+class b : public a
+{};
+
+class P
+{
+public:
+	virtual a* f()
+	{
+		return new a;
+	}
+};
+
+class S : public P
+{
+	virtual b* f()
+	{
+		return new b;
+	}
+};
+
+
 int main()
 {
-	A a;
+	/*A a;
 	B b;
-	C c;
+	C c;*/
 	/*Person p;
 	Student s;
 	Test(s);
 	Test(p);*/
+	Dz d;
+	d.Drive();
 	return 0;
 }
